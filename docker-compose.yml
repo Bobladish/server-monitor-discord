@@ -3,9 +3,10 @@ services:
     build: .
     container_name: discord_monitor_bot
     restart: always
-    environment:
-      - DISCORD_BOT_TOKEN=あなたのDiscord_Bot_トークン
-      - NOTIFY_CHANNEL_ID=定期通知を送りたいチャンネルID
-    # サーバー本体（ホスト）の容量などを監視したい場合は、以下のようにマウントすると便利です
+    # .env ファイルを読み込む設定
+    env_file:
+      - .env
+    # ホストマシンの正確なリソース（特にディスクやプロセス）を監視するため、
+    # ルートディレクトリをコンテナ内にマウントします
     volumes:
-      - /:/host:ro # ホストのルートを読み取り専用でマウント（必要に応じて）
+      - /:/host:ro

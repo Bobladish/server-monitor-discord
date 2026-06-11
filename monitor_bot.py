@@ -20,8 +20,9 @@ def get_immediate_status():
     mem_used_gb = memory.used / (1024 ** 3)
     mem_total_gb = memory.total / (1024 ** 3)
     
-    # ディスク
-    disk = psutil.disk_usage('/')
+    # ディスク (ホストマウント /host があればそちらを、なければ / を監視)
+    disk_path = '/host' if os.path.exists('/host') else '/'
+    disk = psutil.disk_usage(disk_path)
     disk_used_gb = disk.used / (1024 ** 3)
     disk_total_gb = disk.total / (1024 ** 3)
     
